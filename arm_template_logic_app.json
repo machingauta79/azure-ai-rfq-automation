@@ -1,0 +1,357 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "type": "string",
+      "defaultValue": "logic-rfq-processor-production"
+    },
+    "azureOpenAiEndpoint": {
+      "type": "string",
+      "defaultValue": "https://oai-rfq-automation-01.openai.azure.com/"
+    },
+    "azureOpenAiKey": {
+      "type": "securestring",
+      "defaultValue": "YOUR_AZURE_OPENAI_KEY_HERE"
+    },
+    "azureOpenAiDeployment": {
+      "type": "string",
+      "defaultValue": "gpt-5"
+    },
+    "salesManagerEmail": {
+      "type": "string",
+      "defaultValue": "martin.kuda@gmail.com"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "office365",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "displayName": "Office 365 Outlook",
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/office365')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "sharepointonline",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "displayName": "SharePoint Online - VSO Zimbabwe",
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/sharepointonline')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2019-05-01",
+      "name": "[parameters('logicAppName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', 'office365')]",
+        "[resourceId('Microsoft.Web/connections', 'sharepointonline')]"
+      ],
+      "properties": {
+        "state": "Enabled",
+        "parameters": {
+          "$connections": {
+            "value": {
+              "office365": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', 'office365')]",
+                "connectionName": "office365",
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/office365')]"
+              },
+              "sharepointonline": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', 'sharepointonline')]",
+                "connectionName": "sharepointonline",
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/sharepointonline')]"
+              }
+            }
+          }
+        },
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+            "$connections": {
+              "defaultValue": {},
+              "type": "Object"
+            }
+          },
+          "actions": {
+            "Initialize_GrandTotal": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "GrandTotal",
+                    "type": "float",
+                    "value": 0
+                  }
+                ]
+              },
+              "runAfter": {}
+            },
+            "Processing_Scope": {
+              "type": "Scope",
+              "actions": {
+                "Call_Azure_OpenAI_GPT5": {
+                  "type": "Http",
+                  "inputs": {
+                    "method": "POST",
+                    "uri": "[concat(parameters('azureOpenAiEndpoint'), 'openai/deployments/', parameters('azureOpenAiDeployment'), '/chat/completions?api-version=2024-02-01')]",
+                    "headers": {
+                      "api-key": "[parameters('azureOpenAiKey')]",
+                      "Content-Type": "application/json"
+                    },
+                    "body": {
+                      "messages": [
+                        {
+                          "role": "system",
+                          "content": "You are an AI assistant that processes Requests for Quotation (RFQ). Your ONLY output must be a valid JSON object. Do NOT output any plain text, markdown, or explanation outside the JSON.\n\nSTEP 1 - CLASSIFY: Determine if the email is a genuine RFQ or spam/newsletter. Set is_rfq accordingly.\n\nSTEP 2 - EXTRACT: Extract customer_name, contact_email, confidence_score (0.0 to 1.0), and reasoning. If a value is unknown, use an empty string \"\" instead of null. Do NOT include newline characters (\\n) in any string values.\n\nSTEP 3 - MATCH ITEMS: Use this catalog to match requested items and calculate prices:\n- SKU: VALVE-SS-2IN | Industrial Valve 2-inch Stainless | $120.00 | 7 Business Days\n- SKU: SENSOR-PRESS-DIG | High-Pressure Digital Sensor | $350.00 | 14 Business Days\n- SKU: FLOW-MTR-EM-4IN | Flow Meter Electromagnetic 4-inch | $850.00 | 21 Business Days\n- SKU: PUMP-CENT-5HP | Centrifugal Pump 5HP | $1,450.00 | 28 Business Days\n- SKU: GSKT-FLG-2IN | Flange Gasket Kit 2-inch | $25.00 | 7 Business Days\nFor unmatched items: unit_price = 0, lead_time = TBD.\n\nSTEP 4 - BUILD HTML EMAIL: Set draft_email_html to EXACTLY this HTML structure (fill in the dynamic values, do not change the HTML/CSS structure):\n\n\"<div style='font-family:Arial,Helvetica,sans-serif;max-width:700px;margin:0 auto;color:#333;'><div style='background:#1a3c5e;padding:20px 30px;'><h1 style='color:#ffffff;margin:0;font-size:22px;'>VSO Zimbabwe - Formal Quotation Proposal</h1><p style='color:#a8c8e8;margin:5px 0 0;font-size:13px;'>Reference: RFQ-AUTO | Date: [TODAY DATE]</p></div><div style='padding:25px 30px;background:#ffffff;'><p style='font-size:15px;'>Dear [CUSTOMER NAME],</p><p style='font-size:14px;line-height:1.6;'>Thank you for reaching out with your Request for Quotation. Below is our formal pricing proposal for your requested items:</p><table style='width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;'><thead><tr style='background:#1a3c5e;color:#ffffff;'><th style='padding:12px 15px;text-align:left;border:1px solid #ddd;'>Item &amp; SKU</th><th style='padding:12px 15px;text-align:center;border:1px solid #ddd;'>Qty</th><th style='padding:12px 15px;text-align:right;border:1px solid #ddd;'>Unit Price</th><th style='padding:12px 15px;text-align:right;border:1px solid #ddd;'>Total Price</th><th style='padding:12px 15px;text-align:center;border:1px solid #ddd;'>Lead Time</th></tr></thead><tbody>[TABLE ROWS - one TR per line item: odd rows background #f8f9fa, even rows background #ffffff. Each TD uses padding:10px 15px;border:1px solid #ddd. Item column shows Name then SKU in smaller grey text. Qty centered. Unit Price and Total Price right-aligned with $ prefix.]</tbody><tfoot><tr style='background:#e8f0e8;font-weight:bold;'><td colspan='3' style='padding:12px 15px;border:1px solid #ddd;text-align:right;'>Total Quoted Amount (USD):</td><td style='padding:12px 15px;border:1px solid #ddd;text-align:right;font-size:16px;color:#1a3c5e;'>$[GRAND TOTAL]</td><td style='padding:12px 15px;border:1px solid #ddd;'></td></tr></tfoot></table><div style='background:#f0f7ff;border-left:4px solid #1a3c5e;padding:15px 20px;margin:20px 0;font-size:13px;'><p style='margin:0 0 8px;'><strong>Quotation Terms:</strong></p><p style='margin:0;'>This quotation is valid for <strong>30 days</strong> from the date above. Prices are in USD. Lead times are estimates from order confirmation. To proceed, please reply to this email with your official Purchase Order.</p></div><p style='font-size:14px;margin-top:20px;'>Best regards,<br/><strong>Commercial Sales Team</strong><br/>VSO Zimbabwe<br/><a href='mailto:martin.kuda@gmail.com' style='color:#1a3c5e;'>martin.kuda@gmail.com</a></p></div><div style='background:#f5f5f5;padding:12px 30px;text-align:center;font-size:11px;color:#888;'>This is an automated quotation generated by VSO Zimbabwe RFQ System. &copy; 2025 VSO Zimbabwe.</div></div>\"\n\nRETURN this exact JSON structure:\n{\"is_rfq\": boolean, \"customer_name\": string, \"contact_email\": string, \"confidence_score\": number, \"reasoning\": string, \"quote_total\": number, \"draft_email_html\": string, \"line_items\": [{\"sku\": string, \"name\": string, \"quantity\": integer, \"unit_price\": number, \"line_total\": number, \"lead_time\": string}]}"
+                        },
+                        {
+                          "role": "user",
+                          "content": "@{triggerBody()?['body']}"
+                        }
+                      ],
+                      "response_format": { "type": "json_object" }
+                    },
+                    "retryPolicy": {
+                      "type": "exponential",
+                      "count": 4,
+                      "interval": "PT15S",
+                      "minimumInterval": "PT5S",
+                      "maximumInterval": "PT2M"
+                    }
+                  },
+                  "runAfter": {}
+                },
+                "Parse_AI_Response_JSON": {
+                  "type": "ParseJson",
+                  "inputs": {
+                    "content": "@body('Call_Azure_OpenAI_GPT5')?['choices']?[0]?['message']?['content']",
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "is_rfq": {
+                          "type": "boolean",
+                          "description": "True if the email is a genuine Request for Quotation, False if it is spam, newsletter, or unrelated."
+                        },
+                        "customer_name": {
+                          "type": "string",
+                          "description": "The name of the customer or company requesting the quote."
+                        },
+                        "contact_email": {
+                          "type": "string",
+                          "description": "The email address of the customer to send the quote back to."
+                        },
+                        "confidence_score": {
+                          "type": "number",
+                          "description": "A score between 0.0 and 1.0 indicating how clear and unambiguous the request is. 1.0 means perfectly clear."
+                        },
+                        "reasoning": {
+                          "type": "string",
+                          "description": "A brief explanation of why the confidence score was given, and reasoning for if it is an RFQ."
+                        },
+                        "quote_total": {
+                          "type": "number",
+                          "description": "The calculated grand total of the matched quotation items."
+                        },
+                        "draft_email_html": {
+                          "type": "string",
+                          "description": "A fully styled HTML draft email proposal containing a table of the quotation line items, their prices, and the grand total."
+                        },
+                        "line_items": {
+                          "type": "array",
+                          "description": "The list of requested products.",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "sku": {
+                                "type": "string",
+                                "description": "The specific product SKU or part number."
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "The product name matched from the catalog."
+                              },
+                              "quantity": {
+                                "type": "integer",
+                                "description": "The quantity of the product requested."
+                              },
+                              "unit_price": {
+                                "type": "number",
+                                "description": "The unit price of the item from the catalog."
+                              },
+                              "line_total": {
+                                "type": "number",
+                                "description": "The line total for this item."
+                              },
+                              "lead_time": {
+                                "type": "string",
+                                "description": "The manufacturing and delivery lead time."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Call_Azure_OpenAI_GPT5": ["Succeeded"]
+                  }
+                },
+                "Check_AI_Confidence_and_Item_Match": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@string(coalesce(body('Parse_AI_Response_JSON')?['is_rfq'], true))",
+                          "True"
+                        ]
+                      },
+                      {
+                        "greaterOrEquals": [
+                          "@float(coalesce(body('Parse_AI_Response_JSON')?['confidence_score'], 1))",
+                          0.75
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Send_Draft_Quote_To_Manager": {
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['office365']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/v2/Mail",
+                        "body": {
+                          "To": "[parameters('salesManagerEmail')]",
+                          "Subject": "[DRAFT QUOTE] Please review and forward to @{coalesce(triggerBody()?['from'], body('Parse_AI_Response_JSON')?['contact_email'])}",
+                          "Body": "<div style=\"font-family: Arial, sans-serif; line-height: 1.5; color: #333;\"><div style=\"background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; margin-bottom: 20px; border-radius: 5px;\"><strong>📋 DRAFT QUOTE FOR SALES MANAGER REVIEW</strong><br/>====================================================<br/><strong>Customer Sender:</strong> @{triggerBody()?['from']}<br/><strong>Customer Name (AI):</strong> @{body('Parse_AI_Response_JSON')?['customer_name']}<br/><strong>Customer Email (AI):</strong> @{body('Parse_AI_Response_JSON')?['contact_email']}<br/><strong>AI Confidence Score:</strong> @{body('Parse_AI_Response_JSON')?['confidence_score']}<br/><strong>AI Reasoning:</strong> @{body('Parse_AI_Response_JSON')?['reasoning']}<br/>👉 <strong>Instructions:</strong> Review the proposal below. If accurate, click 'Forward', enter the customer's email address, and send!<br/>====================================================</div>@{body('Parse_AI_Response_JSON')?['draft_email_html']}</div>"
+                        }
+                      }
+                    },
+                    "For_Each_Line_Item": {
+                      "type": "Foreach",
+                      "foreach": "@body('Parse_AI_Response_JSON')?['line_items']",
+                      "actions": {
+                        "Create_SharePoint_RFQ_Item": {
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['sharepointonline']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/datasets/@{encodeURIComponent(encodeURIComponent('https://vsointernational.sharepoint.com/sites/vsozimbabwe'))}/tables/@{encodeURIComponent(encodeURIComponent('RFQ_Tracker'))}/items",
+                            "body": {
+                              "Title": "@items('For_Each_Line_Item')?['name']",
+                              "field_1": "@body('Parse_AI_Response_JSON')?['customer_name']",
+                              "field_3": "@body('Parse_AI_Response_JSON')?['contact_email']",
+                              "field_5": "@body('Parse_AI_Response_JSON')?['quote_total']",
+                              "field_6": "Quote Prepared",
+                              "field_7": "@utcNow()",
+                              "field_10": "@body('Parse_AI_Response_JSON')?['confidence_score']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Send_Draft_Quote_To_Manager": ["Succeeded"]
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Send_Internal_Sales_Alert_Email": {
+                        "type": "ApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connection": {
+                              "name": "@parameters('$connections')['office365']['connectionId']"
+                            }
+                          },
+                          "method": "post",
+                          "path": "/v2/Mail",
+                          "body": {
+                            "To": "[parameters('salesManagerEmail')]",
+                            "Importance": "High",
+                            "Subject": "⚠️ ATTENTION: RFQ Requires Manual Review (Low Confidence / Not RFQ)",
+                            "Body": "<div><h3>Attention Sales Manager (Martin)</h3><p>An incoming email required manual review.</p><p><strong>Customer Email:</strong> @{coalesce(triggerBody()?['from'], body('Parse_AI_Response_JSON')?['contact_email'])}</p><p><strong>Is RFQ?:</strong> @{body('Parse_AI_Response_JSON')?['is_rfq']}</p><p><strong>Confidence Score:</strong> @{body('Parse_AI_Response_JSON')?['confidence_score']}</p><p><strong>AI Reasoning:</strong> @{body('Parse_AI_Response_JSON')?['reasoning']}</p></div>"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Parse_AI_Response_JSON": ["Succeeded"]
+                  }
+                }
+              },
+              "runAfter": {
+                "Initialize_GrandTotal": ["Succeeded"]
+              }
+            },
+            "Send_System_Error_Notification_Email": {
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['office365']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/v2/Mail",
+                "body": {
+                  "To": "[parameters('salesManagerEmail')]",
+                  "Importance": "High",
+                  "Subject": "🚨 CRITICAL SYSTEM ALERT: RFQ Pipeline Exception Failure",
+                  "Body": "<div style=\"font-family: Arial; padding: 20px; border: 1px solid red;\"><h2 style=\"color: red;\">🚨 System Error Notification</h2><p>An exception occurred while processing an incoming RFQ.</p><p><strong>Sender:</strong> @{triggerBody()?['from']}</p><p><strong>Subject:</strong> @{triggerBody()?['subject']}</p><p><strong>Action Taken:</strong> Email flagged with High Importance in Inbox & alert sent to Martin.</p></div>"
+                }
+              },
+              "runAfter": {
+                "Processing_Scope": ["Failed", "TimedOut"]
+              }
+            }
+          },
+          "triggers": {
+            "When_a_new_email_arrives_(V3)": {
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['office365']['connectionId']"
+                  }
+                },
+                "method": "get",
+                "path": "/v3/Mail/OnNewEmail",
+                "queries": {
+                  "folderPath": "Inbox"
+                }
+              },
+              "recurrence": {
+                "frequency": "Minute",
+                "interval": 3
+              },
+              "splitOn": "@triggerBody()?['value']"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

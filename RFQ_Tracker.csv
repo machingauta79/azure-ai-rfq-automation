@@ -1,0 +1,4 @@
+Title,CustomerName,ContactPerson,ContactEmail,ContactPhone,QuoteTotal,Status,SentDate,NextFollowUpDate,FollowUpCount,ConfidenceScore,ApprovalReasons
+RFQ-2026-0001,Global Petroleum Services,Robert Vance,r.vance@globalpetro.com,+1-555-839-2001,2305.0,Quote Sent,2026-07-31T09:30:00,2026-08-03,0,0.98,None
+RFQ-2026-0002,Apex Engineering Corp,Sarah Lin,slin@apexeng.org,+1-555-402-1188,14550.0,Pending Approval,2026-08-02T14:15:00,2026-08-05,0,0.95,"High Quote Value (>= ,000.00)"
+RFQ-2026-0003,Horizon Refinery Ltd,David Miller,d.miller@horizonrefinery.io,+1-555-901-4433,8500.0,Quote Sent,2026-07-30T11:00:00,2026-08-02,1,0.92,None

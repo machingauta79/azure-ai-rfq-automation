@@ -1,0 +1,6 @@
+Title,SKU,UnitPrice,StockLevel,LeadTimeWeeks,Category
+Industrial Valve 2-inch Stainless,VALVE-SS-2IN,120.0,45,1,Valves
+High-Pressure Digital Sensor,SENSOR-PRESS-DIG,350.0,18,2,Sensors
+Flow Meter Electromagnetic 4-inch,FLOW-MTR-EM-4IN,850.0,8,3,Meters
+Centrifugal Pump 5HP,PUMP-CENT-5HP,1450.0,5,4,Pumps
+Flange Gasket Kit 2-inch,GSKT-FLG-2IN,25.0,120,1,Gaskets

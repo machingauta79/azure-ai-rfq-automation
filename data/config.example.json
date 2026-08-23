@@ -1,0 +1,6 @@
+{
+  "azure_openai_endpoint": "https://YOUR-AZURE-OPENAI-RESOURCE.openai.azure.com/",
+  "azure_openai_api_key": "YOUR_AZURE_OPENAI_KEY_HERE",
+  "azure_openai_deployment": "gpt-5",
+  "sales_manager_email": "salesmanager@yourcompany.com"
+}

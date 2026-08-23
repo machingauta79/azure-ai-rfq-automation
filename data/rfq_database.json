@@ -1,0 +1,307 @@
+[
+  {
+    "rfq_id": "RFQ-2026-1137",
+    "customer_name": "Chiwenga Industrial Supplies",
+    "contact_person": "Kudzai Chiwenga",
+    "contact_email": "k.chiwenga@industrial.co.zw",
+    "contact_phone": "+263 71 987 6543",
+    "quote_total": 14850.0,
+    "status": "Pending Approval",
+    "sent_date": "2026-08-20T20:38:57.043764",
+    "next_followup_date": "2026-08-23",
+    "followup_count": 0,
+    "confidence_score": 0.98,
+    "requires_approval": true,
+    "approval_reasons": [
+      "High Quote Value (>= $10,000.00)"
+    ],
+    "items": [
+      {
+        "sku": "VALVE-SS-2IN",
+        "name": "Industrial Valve 2-inch Stainless",
+        "qty": 30,
+        "unit_price": 120.0,
+        "line_total": 3600.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      },
+      {
+        "sku": "SENSOR-PRESS-DIG",
+        "name": "High-Pressure Digital Sensor",
+        "qty": 30,
+        "unit_price": 350.0,
+        "line_total": 10500.0,
+        "matched": true,
+        "lead_time": "14 Business Days"
+      },
+      {
+        "sku": "GSKT-FLG-2IN",
+        "name": "Flange Gasket Kit 2-inch",
+        "qty": 30,
+        "unit_price": 25.0,
+        "line_total": 750.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      }
+    ],
+    "draft_email_html": "<div style=\"font-family: Arial, sans-serif; padding: 15px; border: 1px solid #ddd; border-radius: 8px;\">\n<p>Dear Kudzai Chiwenga,</p>\n<p>Thank you for reaching out to us regarding your request for quotation. Below is our formal pricing proposal for <strong>Chiwenga Industrial Supplies</strong>:</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%;\">\n  <thead>\n    <tr style=\"background: #0056b3; color: white;\">\n      <th>Item & SKU</th><th>Qty</th><th>Unit Price</th><th>Total Price</th><th>Lead Time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>Industrial Valve 2-inch Stainless (VALVE-SS-2IN)</td><td>30</td><td>$120.00</td><td>$3600.00</td><td>7 Business Days</td></tr><tr><td>High-Pressure Digital Sensor (SENSOR-PRESS-DIG)</td><td>30</td><td>$350.00</td><td>$10500.00</td><td>14 Business Days</td></tr><tr><td>Flange Gasket Kit 2-inch (GSKT-FLG-2IN)</td><td>30</td><td>$25.00</td><td>$750.00</td><td>7 Business Days</td></tr>\n  </tbody>\n</table>\n<h3 style=\"text-align: right; color: #0056b3;\">Total Quoted Amount: $14,850.00 USD</h3>\n<p>This quotation is valid for 30 days. Please reply directly to confirm your purchase order.</p>\n<p>Best regards,<br><strong>Automated Quotations Team</strong></p>\n</div>"
+  },
+  {
+    "rfq_id": "RFQ-2026-1132",
+    "customer_name": "VSO Zimbabwe Engineering Services",
+    "contact_person": "Tinashe Moyo",
+    "contact_email": "tinashe.moyo@vsozim.co.zw",
+    "contact_phone": "+263 77 123 4567",
+    "quote_total": 9780.0,
+    "status": "Quote Sent",
+    "sent_date": "2026-08-20T20:38:52.936553",
+    "next_followup_date": "2026-08-23",
+    "followup_count": 0,
+    "confidence_score": 0.98,
+    "requires_approval": false,
+    "approval_reasons": [],
+    "items": [
+      {
+        "sku": "VALVE-SS-2IN",
+        "name": "Industrial Valve 2-inch Stainless",
+        "qty": 4,
+        "unit_price": 120.0,
+        "line_total": 480.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      },
+      {
+        "sku": "FLOW-MTR-EM-4IN",
+        "name": "Flow Meter Electromagnetic 4-inch",
+        "qty": 4,
+        "unit_price": 850.0,
+        "line_total": 3400.0,
+        "matched": true,
+        "lead_time": "21 Business Days"
+      },
+      {
+        "sku": "PUMP-CENT-5HP",
+        "name": "Centrifugal Pump 5HP",
+        "qty": 4,
+        "unit_price": 1450.0,
+        "line_total": 5800.0,
+        "matched": true,
+        "lead_time": "28 Business Days"
+      },
+      {
+        "sku": "GSKT-FLG-2IN",
+        "name": "Flange Gasket Kit 2-inch",
+        "qty": 4,
+        "unit_price": 25.0,
+        "line_total": 100.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      }
+    ],
+    "draft_email_html": "<div style=\"font-family: Arial, sans-serif; padding: 15px; border: 1px solid #ddd; border-radius: 8px;\">\n<p>Dear Tinashe Moyo,</p>\n<p>Thank you for reaching out to us regarding your request for quotation. Below is our formal pricing proposal for <strong>VSO Zimbabwe Engineering Services</strong>:</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%;\">\n  <thead>\n    <tr style=\"background: #0056b3; color: white;\">\n      <th>Item & SKU</th><th>Qty</th><th>Unit Price</th><th>Total Price</th><th>Lead Time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>Industrial Valve 2-inch Stainless (VALVE-SS-2IN)</td><td>4</td><td>$120.00</td><td>$480.00</td><td>7 Business Days</td></tr><tr><td>Flow Meter Electromagnetic 4-inch (FLOW-MTR-EM-4IN)</td><td>4</td><td>$850.00</td><td>$3400.00</td><td>21 Business Days</td></tr><tr><td>Centrifugal Pump 5HP (PUMP-CENT-5HP)</td><td>4</td><td>$1450.00</td><td>$5800.00</td><td>28 Business Days</td></tr><tr><td>Flange Gasket Kit 2-inch (GSKT-FLG-2IN)</td><td>4</td><td>$25.00</td><td>$100.00</td><td>7 Business Days</td></tr>\n  </tbody>\n</table>\n<h3 style=\"text-align: right; color: #0056b3;\">Total Quoted Amount: $9,780.00 USD</h3>\n<p>This quotation is valid for 30 days. Please reply directly to confirm your purchase order.</p>\n<p>Best regards,<br><strong>Automated Quotations Team</strong></p>\n</div>"
+  },
+  {
+    "rfq_id": "RFQ-2026-7133",
+    "customer_name": "Apex Engineering Corp",
+    "contact_person": "Sarah Lin",
+    "contact_email": "slin@apexengineering.com",
+    "contact_phone": "+1-555-402-1188",
+    "quote_total": 19450.0,
+    "status": "Pending Approval",
+    "sent_date": "2026-08-20T19:32:13.907812",
+    "next_followup_date": "2026-08-23",
+    "followup_count": 0,
+    "confidence_score": 0.98,
+    "requires_approval": true,
+    "approval_reasons": [
+      "High Quote Value (>= $10,000.00)"
+    ],
+    "items": [
+      {
+        "sku": "VALVE-SS-2IN",
+        "name": "Industrial Valve 2-inch Stainless",
+        "qty": 10,
+        "unit_price": 120.0,
+        "line_total": 1200.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      },
+      {
+        "sku": "SENSOR-PRESS-DIG",
+        "name": "High-Pressure Digital Sensor",
+        "qty": 10,
+        "unit_price": 350.0,
+        "line_total": 3500.0,
+        "matched": true,
+        "lead_time": "14 Business Days"
+      },
+      {
+        "sku": "PUMP-CENT-5HP",
+        "name": "Centrifugal Pump 5HP",
+        "qty": 10,
+        "unit_price": 1450.0,
+        "line_total": 14500.0,
+        "matched": true,
+        "lead_time": "28 Business Days"
+      },
+      {
+        "sku": "GSKT-FLG-2IN",
+        "name": "Flange Gasket Kit 2-inch",
+        "qty": 10,
+        "unit_price": 25.0,
+        "line_total": 250.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      }
+    ],
+    "draft_email_html": "<div style=\"font-family: Arial, sans-serif; padding: 15px; border: 1px solid #ddd; border-radius: 8px;\">\n<p>Dear Sarah Lin,</p>\n<p>Thank you for reaching out to us regarding your request for quotation. Below is our formal pricing proposal for <strong>Apex Engineering Corp</strong>:</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%;\">\n  <thead>\n    <tr style=\"background: #0056b3; color: white;\">\n      <th>Item & SKU</th><th>Qty</th><th>Unit Price</th><th>Total Price</th><th>Lead Time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>Industrial Valve 2-inch Stainless (VALVE-SS-2IN)</td><td>10</td><td>$120.00</td><td>$1200.00</td><td>7 Business Days</td></tr><tr><td>High-Pressure Digital Sensor (SENSOR-PRESS-DIG)</td><td>10</td><td>$350.00</td><td>$3500.00</td><td>14 Business Days</td></tr><tr><td>Centrifugal Pump 5HP (PUMP-CENT-5HP)</td><td>10</td><td>$1450.00</td><td>$14500.00</td><td>28 Business Days</td></tr><tr><td>Flange Gasket Kit 2-inch (GSKT-FLG-2IN)</td><td>10</td><td>$25.00</td><td>$250.00</td><td>7 Business Days</td></tr>\n  </tbody>\n</table>\n<h3 style=\"text-align: right; color: #0056b3;\">Total Quoted Amount: $19,450.00 USD</h3>\n<p>This quotation is valid for 30 days. Please reply directly to confirm your purchase order.</p>\n<p>Best regards,<br><strong>Automated Quotations Team</strong></p>\n</div>"
+  },
+  {
+    "rfq_id": "RFQ-2026-3961",
+    "customer_name": "Apex Engineering Corp",
+    "contact_person": "Sarah Lin",
+    "contact_email": "slin@apexengineering.com",
+    "contact_phone": "+1-555-402-1188",
+    "quote_total": 19450.0,
+    "status": "Pending Approval",
+    "sent_date": "2026-08-20T18:39:21.114757",
+    "next_followup_date": "2026-08-23",
+    "followup_count": 0,
+    "confidence_score": 0.98,
+    "requires_approval": true,
+    "approval_reasons": [
+      "High Quote Value (>= $10,000.00)"
+    ],
+    "items": [
+      {
+        "sku": "VALVE-SS-2IN",
+        "name": "Industrial Valve 2-inch Stainless",
+        "qty": 10,
+        "unit_price": 120.0,
+        "line_total": 1200.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      },
+      {
+        "sku": "SENSOR-PRESS-DIG",
+        "name": "High-Pressure Digital Sensor",
+        "qty": 10,
+        "unit_price": 350.0,
+        "line_total": 3500.0,
+        "matched": true,
+        "lead_time": "14 Business Days"
+      },
+      {
+        "sku": "PUMP-CENT-5HP",
+        "name": "Centrifugal Pump 5HP",
+        "qty": 10,
+        "unit_price": 1450.0,
+        "line_total": 14500.0,
+        "matched": true,
+        "lead_time": "28 Business Days"
+      },
+      {
+        "sku": "GSKT-FLG-2IN",
+        "name": "Flange Gasket Kit 2-inch",
+        "qty": 10,
+        "unit_price": 25.0,
+        "line_total": 250.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      }
+    ],
+    "draft_email_html": "<div style=\"font-family: Arial, sans-serif; padding: 15px; border: 1px solid #ddd; border-radius: 8px;\">\n<p>Dear Sarah Lin,</p>\n<p>Thank you for reaching out to us regarding your request for quotation. Below is our formal pricing proposal for <strong>Apex Engineering Corp</strong>:</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%;\">\n  <thead>\n    <tr style=\"background: #0056b3; color: white;\">\n      <th>Item & SKU</th><th>Qty</th><th>Unit Price</th><th>Total Price</th><th>Lead Time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>Industrial Valve 2-inch Stainless (VALVE-SS-2IN)</td><td>10</td><td>$120.00</td><td>$1200.00</td><td>7 Business Days</td></tr><tr><td>High-Pressure Digital Sensor (SENSOR-PRESS-DIG)</td><td>10</td><td>$350.00</td><td>$3500.00</td><td>14 Business Days</td></tr><tr><td>Centrifugal Pump 5HP (PUMP-CENT-5HP)</td><td>10</td><td>$1450.00</td><td>$14500.00</td><td>28 Business Days</td></tr><tr><td>Flange Gasket Kit 2-inch (GSKT-FLG-2IN)</td><td>10</td><td>$25.00</td><td>$250.00</td><td>7 Business Days</td></tr>\n  </tbody>\n</table>\n<h3 style=\"text-align: right; color: #0056b3;\">Total Quoted Amount: $19,450.00 USD</h3>\n<p>This quotation is valid for 30 days. Please reply directly to confirm your purchase order.</p>\n<p>Best regards,<br><strong>Automated Quotations Team</strong></p>\n</div>"
+  },
+  {
+    "rfq_id": "RFQ-2026-1779",
+    "customer_name": "Apex Engineering Corp",
+    "contact_person": "Sarah Lin",
+    "contact_email": "slin@apexengineering.com",
+    "contact_phone": "+1-555-402-1188",
+    "quote_total": 19450.0,
+    "status": "Pending Approval",
+    "sent_date": "2026-08-20T18:02:59.487979",
+    "next_followup_date": "2026-08-23",
+    "followup_count": 0,
+    "confidence_score": 0.98,
+    "requires_approval": true,
+    "approval_reasons": [
+      "High Quote Value (>= $10,000.00)"
+    ],
+    "items": [
+      {
+        "sku": "VALVE-SS-2IN",
+        "name": "Industrial Valve 2-inch Stainless",
+        "qty": 10,
+        "unit_price": 120.0,
+        "line_total": 1200.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      },
+      {
+        "sku": "SENSOR-PRESS-DIG",
+        "name": "High-Pressure Digital Sensor",
+        "qty": 10,
+        "unit_price": 350.0,
+        "line_total": 3500.0,
+        "matched": true,
+        "lead_time": "14 Business Days"
+      },
+      {
+        "sku": "PUMP-CENT-5HP",
+        "name": "Centrifugal Pump 5HP",
+        "qty": 10,
+        "unit_price": 1450.0,
+        "line_total": 14500.0,
+        "matched": true,
+        "lead_time": "28 Business Days"
+      },
+      {
+        "sku": "GSKT-FLG-2IN",
+        "name": "Flange Gasket Kit 2-inch",
+        "qty": 10,
+        "unit_price": 25.0,
+        "line_total": 250.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      }
+    ],
+    "draft_email_html": "<div style=\"font-family: Arial, sans-serif; padding: 15px; border: 1px solid #ddd; border-radius: 8px;\">\n<p>Dear Sarah Lin,</p>\n<p>Thank you for reaching out to us regarding your request for quotation. Below is our formal pricing proposal for <strong>Apex Engineering Corp</strong>:</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%;\">\n  <thead>\n    <tr style=\"background: #0056b3; color: white;\">\n      <th>Item & SKU</th><th>Qty</th><th>Unit Price</th><th>Total Price</th><th>Lead Time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>Industrial Valve 2-inch Stainless (VALVE-SS-2IN)</td><td>10</td><td>$120.00</td><td>$1200.00</td><td>7 Business Days</td></tr><tr><td>High-Pressure Digital Sensor (SENSOR-PRESS-DIG)</td><td>10</td><td>$350.00</td><td>$3500.00</td><td>14 Business Days</td></tr><tr><td>Centrifugal Pump 5HP (PUMP-CENT-5HP)</td><td>10</td><td>$1450.00</td><td>$14500.00</td><td>28 Business Days</td></tr><tr><td>Flange Gasket Kit 2-inch (GSKT-FLG-2IN)</td><td>10</td><td>$25.00</td><td>$250.00</td><td>7 Business Days</td></tr>\n  </tbody>\n</table>\n<h3 style=\"text-align: right; color: #0056b3;\">Total Quoted Amount: $19,450.00 USD</h3>\n<p>This quotation is valid for 30 days. Please reply directly to confirm your purchase order.</p>\n<p>Best regards,<br><strong>Automated Quotations Team</strong></p>\n</div>"
+  },
+  {
+    "rfq_id": "RFQ-2026-1756",
+    "customer_name": "Apex Engineering Corp",
+    "contact_person": "Sarah Lin",
+    "contact_email": "slin@apexengineering.com",
+    "contact_phone": "+1-555-402-1188",
+    "quote_total": 4700.0,
+    "status": "Quote Sent",
+    "sent_date": "2026-08-20T18:02:36.597765",
+    "next_followup_date": "2026-08-23",
+    "followup_count": 0,
+    "confidence_score": 0.98,
+    "requires_approval": false,
+    "approval_reasons": [],
+    "items": [
+      {
+        "sku": "VALVE-SS-2IN",
+        "name": "Industrial Valve 2-inch Stainless",
+        "qty": 10,
+        "unit_price": 120.0,
+        "line_total": 1200.0,
+        "matched": true,
+        "lead_time": "7 Business Days"
+      },
+      {
+        "sku": "SENSOR-PRESS-DIG",
+        "name": "High-Pressure Digital Sensor",
+        "qty": 10,
+        "unit_price": 350.0,
+        "line_total": 3500.0,
+        "matched": true,
+        "lead_time": "14 Business Days"
+      }
+    ],
+    "draft_email_html": "<div style=\"font-family: Arial, sans-serif; padding: 15px; border: 1px solid #ddd; border-radius: 8px;\">\n<p>Dear Sarah Lin,</p>\n<p>Thank you for reaching out to us regarding your request for quotation. Below is our formal pricing proposal for <strong>Apex Engineering Corp</strong>:</p>\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%;\">\n  <thead>\n    <tr style=\"background: #0056b3; color: white;\">\n      <th>Item & SKU</th><th>Qty</th><th>Unit Price</th><th>Total Price</th><th>Lead Time</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>Industrial Valve 2-inch Stainless (VALVE-SS-2IN)</td><td>10</td><td>$120.00</td><td>$1200.00</td><td>7 Business Days</td></tr><tr><td>High-Pressure Digital Sensor (SENSOR-PRESS-DIG)</td><td>10</td><td>$350.00</td><td>$3500.00</td><td>14 Business Days</td></tr>\n  </tbody>\n</table>\n<h3 style=\"text-align: right; color: #0056b3;\">Total Quoted Amount: $4,700.00 USD</h3>\n<p>This quotation is valid for 30 days. Please reply directly to confirm your purchase order.</p>\n<p>Best regards,<br><strong>Automated Quotations Team</strong></p>\n</div>"
+  }
+]
